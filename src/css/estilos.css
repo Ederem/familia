@@ -1,0 +1,179 @@
+body{
+  font-family: 'ssf4', Courier, monospace;
+  /*a nossa fonte principal é o ssf4, mas deixamos a courier e a monospace para caso a pagina nao carregue o fonte SSF4, as outras sejam carregadas. */
+  background: var(--cor-secundaria);
+  /*nosso background é essa variavel criada com a cor preta, para caso nao seja carregado o gif, o fundo continue preto*/
+}
+
+body::before{
+  content: '';
+/*O conteudo de fundo vai ser vazio, por isso o '' pois ele será uma imagem (gif)*/
+  background-image: url("../imagens/fundo.gif");
+/*nao entendi pq ele vai usar o background-repeat que seria*/
+ background-repeat: no-repeat;
+ background-size: cover;
+ /* o cover é para cobrir a tela toda, mas ainda usaremos a altura e largura tambem*/
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ opacity: 0.5;
+ /* a opacidade é colocada para que nao fique muito forte a imagem do gif */
+}
+
+main{
+  min-height: 100vh;
+/*altura minima de 100% da tela, mas tenho que entender melhor quando usar o % ou o VH */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cabecalho{
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.cabecalho .titulo {
+  color: var(--cor-titulo-fraco);
+  text-transform: uppercase;
+/* isso coloca todas as letras em maiusculo */
+  font-size: 52px;
+  line-height: 102px;
+/* altura da linha somente para enquadrar certinho ate o final da perna dos R do ChaRacteR */
+  -webkit-text-stroke: 2px var(--cor-titulo-forte);
+/* o webkit só ajuda para que mais navegadores reconhecam a fonte...isso mesmo?? */
+}
+
+.selecao-de-personagens {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selecao-de-personagens .personagem-grande{
+  text-align: center;
+  width: 30%;
+/* 30% de que?, do pai que é o .selecao de personagens que tem a tela toda, entao como queremos que cada personagem tenha apenas 30% da tela para eles fazemos assim. */
+  height: 70vh;
+  position: relative;
+}
+
+.selecao-de-personagens .personagem-grande img{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate( -50%, -50%);
+}
+
+.selecao-de-personagens .personagem-grande .nome::before{
+  content: '';
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+}
+
+.selecao-de-personagens .personagem-grande .nome h2{
+  color: var(--cor-padrao);
+  font-family: 'command', sans-serif;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 27px;
+}
+
+.selecao-de-personagens .personagem-grande.personagem-jogador-1 .nome::before{
+  background-color: var(--cor-azul-principal);
+}
+
+.selecao-de-personagens .personagem-grande.personagem-jogador-2 .nome::before{
+  background-color: var(--cor-vermelha-principal);
+}
+
+.selecao-de-personagens .lista-de-personagens{
+  display: flex;
+  flex-wrap: wrap;
+/* isso significa que quando a pagina ficar pequena é para quebrar e jogar as imagens para baixo...pq usar isso aqui?... */
+  max-width: 500px;
+  justify-content: center;
+  gap: 15px;
+/* gap é o espaço entre os itens */
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem{
+  border: 2px solid var(--cor-padrao);
+  background-color: var(--cor-padrao);
+  width: 30%;
+  height: 160px;
+  cursor: pointer;
+/* para "ser" clicavel */
+  z-index: 2;
+  border-radius: 30px;
+  position: relative;
+/* isso ta sendo feito para depois colocar o position absolut para o 1P aparecer na imagem */
+  transition: 0.15s ease-in-out;
+/* para dar o efeito quando passa o mouse e parece que a figura vem para frente */
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem img{
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem.selecionado{
+/* quando nao tem espaço entre as classes, é pq tem duas classes juntas (olhar no html para entender melhor) */
+  border: 2px solid var(--cor-azul-media);
+  animation: c-glowing-blue .3s ease-in-out infinite;
+/* isso é a animacao de colorir o boneco quando passa o mouse, esse c-glowing foi pego ja pronto, esta na pasta animacoes */
+  animation-direction: alternate;
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem:hover{
+  animation: c-glowing-blue .3s ease-in-out infinite;
+  animation-direction: alternate;
+  transform: scale(1.07);
+  z-index: 2;
+/* essa parte é para dar um pequeno zoom no personagem que passar o mouse */
+}
+
+.selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado{
+    border: 2px solid var(--cor-vermelho-fraco);
+    animation: c-glowing-red .3s ease-in-out infinite;
+    animation-direction: alternate;
+  }
+
+  .selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado:hover{
+    animation: c-glowing-red .3s ease-in-out infinite;
+    animation-direction: alternate;
+  }
+
+  .selecao-de-personagens .lista-de-personagens .personagem .tag{
+  /* para arrumar a tagzinha do 1P */
+    display: none;
+    font-family: 'Times New Roman', Times, serif;
+    position: absolute;
+    top: 7px;
+    left: 8px;
+    color: var(--cor-azul-media);
+    transition: opacity .3s ease-in-out;
+    animation: text-glowing-blue .3s ease-in-out infinite;
+    animation-direction: alternate;
+  }
+
+  .selecao-de-personagens .lista-de-personagens .personagem.selecionado .tag{
+/* esse serve para mostrar o 1P somente no personagem "selecionado" (no que passar o mouse) */
+    display: block;
+    animation: text-glowing-blue .3s ease-in-out infinite;
+    animation-direction: alternate;
+  }
+
+  .selecao-de-personagens .lista-de-personagens .personagem.jogador-2-selecionado .tag{
+    /* esse serve para mostrar o 2P somente no personagem "selecionado" (no que passar o mouse) */
+        display: block;
+        animation: text-glowing-red .3s ease-in-out infinite;
+        animation-direction: alternate;
+      }
+
